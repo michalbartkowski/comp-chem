@@ -9,16 +9,14 @@ import os
 import sys
 import glob
 
-# INPUTS ----------
+# INPUTS -----------
 theory = '#n B3LYP/6-31G(d) SP'
 charge = 0
 multiplicity = 1
-# -----------------
-
+# ------------------
 
 # Extracts data from *.xyz file
 def get_data(file):
-
 
     with open(file, "r") as fo:
         lines = fo.readlines()
@@ -33,6 +31,7 @@ if __name__ == '__main__':
     os.chdir("xyz/")
     if not os.path.exists("gaussian_input"):
         os.makedirs("gaussian_input")
+
     for file in glob.glob("*.xyz"):
         # Removes path and extension; returning just the name
         filename = os.path.splitext(os.path.basename(file))[0]
@@ -43,8 +42,7 @@ if __name__ == '__main__':
         data.insert(1, ['','','',''])
         data.insert(2, [' ' + str(filename),'','',''])
         data.insert(3, ['','','',''])
-        data.insert(4, [charge, multiplicity,'',''])
+        data.insert(4, [charge,multiplicity,'',''])
 
-        
         #----WRITE DATA OUTPUT----
         np.savetxt('gaussian_input/' + str(filename) + '.com', data, fmt="%s")
